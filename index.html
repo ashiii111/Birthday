@@ -5,67 +5,65 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Birthday Surprise</title>
     <style>
-        /* Basic reset to ensure the page fills the screen */
         body, html { 
-            margin: 0; 
-            padding: 0; 
-            height: 100%; 
-            width: 100%; 
-            overflow: hidden; 
-            background-color: #1a1a1a; /* Dark gray fallback color */
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            margin: 0; padding: 0; height: 100%; width: 100%; 
+            overflow: hidden; background-color: #1a1a1a;
+            display: flex; justify-content: center; align-items: center;
         }
 
         .container {
             position: relative; 
             width: 100vw; 
             height: 100vh;
-            /* 'contain' ensures the image is NEVER cropped */
             background-image: url('41480.png'); 
             background-size: contain; 
             background-position: center; 
             background-repeat: no-repeat;
         }
 
-        /* The invisible buttons */
         .hotspot {
             position: absolute; 
             display: block; 
             cursor: pointer;
             text-decoration: none;
-            /* Change '0' to '0.3' to see the boxes while testing placement */
-            background: rgba(255, 255, 255, 0); 
+            /* TESTING TIP: Change '0' to '0.3' below to see the red boxes 
+               and make sure they align perfectly on your screen! */
+            background: rgba(255, 0, 0, 0); 
+            border-radius: 10px;
         }
 
-        /* Coordinates adjusted for the 'contain' layout */
+        /* FIXED COORDINATES */
+        
+        /* Teddy: Shifted Right & made more square */
         .btn-teddy { 
-            top: 15%; 
-            left: 43%; 
-            width: 15%; 
-            height: 32%; 
+            top: 22%; 
+            left: 48%; 
+            width: 12%; 
+            height: 22%; 
         }
 
+        /* Cake: Shifted Right & shortened height */
         .btn-cake { 
-            top: 50%; 
-            left: 31%; 
-            width: 20%; 
-            height: 40%; 
+            top: 55%; 
+            left: 38%; 
+            width: 14%; 
+            height: 25%; 
         }
 
+        /* Gift Box: Shifted Right & made wider */
         .btn-gift { 
-            top: 45%; 
-            left: 55%; 
-            width: 25%; 
-            height: 45%; 
+            top: 52%; 
+            left: 58%; 
+            width: 18%; 
+            height: 30%; 
         }
 
+        /* Vinyl: Shifted Right & lowered slightly */
         .btn-vinyl { 
-            top: 2%; 
-            left: 70%; 
-            width: 22%; 
-            height: 45%; 
+            top: 8%; 
+            left: 75%; 
+            width: 15%; 
+            height: 25%; 
         }
     </style>
 </head>
