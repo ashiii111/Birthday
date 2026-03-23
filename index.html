@@ -1,28 +1,82 @@
-<style>
-    body, html { 
-        margin: 0; padding: 0; height: 100%; width: 100%; 
-        overflow: hidden; background-color: #000; 
-    }
-    .container {
-        position: relative; 
-        width: 100vw; 
-        height: 100vh;
-        /* CHANGE THIS: 'contain' ensures the whole image is visible */
-        background-image: url('41480.png');
-        background-size: contain; 
-        background-position: center; 
-        background-repeat: no-repeat;
-    }
-    .hotspot {
-        position: absolute; 
-        display: block; 
-        cursor: pointer;
-        background: rgba(255, 255, 255, 0); /* Set to 0 to make invisible */
-        /* Optional: Change '0' to '0.2' while testing to see the boxes */
-    }
-    /* Adjusted coordinates for 'contain' mode */
-    .btn-teddy { top: 18%; left: 42%; width: 16%; height: 30%; }
-    .btn-cake  { top: 52%; left: 32%; width: 20%; height: 35%; }
-    .btn-gift  { top: 48%; left: 55%; width: 25%; height: 40%; }
-    .btn-vinyl { top: 5%;  left: 68%; width: 22%; height: 40%; }
-</style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday Surprise</title>
+    <style>
+        /* Basic reset to ensure the page fills the screen */
+        body, html { 
+            margin: 0; 
+            padding: 0; 
+            height: 100%; 
+            width: 100%; 
+            overflow: hidden; 
+            background-color: #1a1a1a; /* Dark gray fallback color */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            position: relative; 
+            width: 100vw; 
+            height: 100vh;
+            /* 'contain' ensures the image is NEVER cropped */
+            background-image: url('41480.png'); 
+            background-size: contain; 
+            background-position: center; 
+            background-repeat: no-repeat;
+        }
+
+        /* The invisible buttons */
+        .hotspot {
+            position: absolute; 
+            display: block; 
+            cursor: pointer;
+            text-decoration: none;
+            /* Change '0' to '0.3' to see the boxes while testing placement */
+            background: rgba(255, 255, 255, 0); 
+        }
+
+        /* Coordinates adjusted for the 'contain' layout */
+        .btn-teddy { 
+            top: 15%; 
+            left: 43%; 
+            width: 15%; 
+            height: 32%; 
+        }
+
+        .btn-cake { 
+            top: 50%; 
+            left: 31%; 
+            width: 20%; 
+            height: 40%; 
+        }
+
+        .btn-gift { 
+            top: 45%; 
+            left: 55%; 
+            width: 25%; 
+            height: 45%; 
+        }
+
+        .btn-vinyl { 
+            top: 2%; 
+            left: 70%; 
+            width: 22%; 
+            height: 45%; 
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <a href="teddy.html" class="hotspot btn-teddy" title="Teddy Bear"></a>
+        <a href="cake.html" class="hotspot btn-cake" title="Birthday Cake"></a>
+        <a href="gift.html" class="hotspot btn-gift" title="Open Gift"></a>
+        <a href="music.html" class="hotspot btn-vinyl" title="Play Music"></a>
+    </div>
+
+</body>
+</html>
