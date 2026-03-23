@@ -1,0 +1,28 @@
+<style>
+    body, html { 
+        margin: 0; padding: 0; height: 100%; width: 100%; 
+        overflow: hidden; background-color: #000; 
+    }
+    .container {
+        position: relative; 
+        width: 100vw; 
+        height: 100vh;
+        /* CHANGE THIS: 'contain' ensures the whole image is visible */
+        background-image: url('41480.png');
+        background-size: contain; 
+        background-position: center; 
+        background-repeat: no-repeat;
+    }
+    .hotspot {
+        position: absolute; 
+        display: block; 
+        cursor: pointer;
+        background: rgba(255, 255, 255, 0); /* Set to 0 to make invisible */
+        /* Optional: Change '0' to '0.2' while testing to see the boxes */
+    }
+    /* Adjusted coordinates for 'contain' mode */
+    .btn-teddy { top: 18%; left: 42%; width: 16%; height: 30%; }
+    .btn-cake  { top: 52%; left: 32%; width: 20%; height: 35%; }
+    .btn-gift  { top: 48%; left: 55%; width: 25%; height: 40%; }
+    .btn-vinyl { top: 5%;  left: 68%; width: 22%; height: 40%; }
+</style>
