@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music - Night Changes</title>
+    <style>
+        body, html { margin: 0; padding: 0; height: 100%; width: 100%; overflow: hidden; background-color: #f0f0f0; font-family: 'Segoe UI', sans-serif; }
+        .container { display: flex; align-items: center; justify-content: center; height: 100vh; }
+        .vinyl-side { flex: 1; display: flex; justify-content: flex-end; padding-right: 50px; }
+        .vinyl-side img { max-width: 80%; height: auto; }
+        .lyrics-side { flex: 1; padding: 40px; color: #aaa; font-size: 1.5rem; line-height: 1.8; text-align: left; }
+        .active-lyric { color: #111; font-weight: 800; transform: scale(1.05); display: inline-block; transition: 0.3s; }
+        .back-btn { position: absolute; top: 20px; left: 20px; text-decoration: none; color: #333; background: rgba(0,0,0,0.08); padding: 10px 25px; border-radius: 25px; font-weight: bold; }
+        .lyrics-list { max-height: 70vh; overflow-y: auto; scrollbar-width: none; }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-btn">← Back</a>
+    <div class="container">
+        <div class="vinyl-side"><img src="41486.gif"></div>
+        <div class="lyrics-side">
+            <div class="lyrics-list" id="lyrics-box">
+                <p class="lyric-line" data-time="9">Going out tonight, changes into something red</p>
+                <p class="lyric-line" data-time="13">Her mother doesn't like that kind of dress</p>
+                <p class="lyric-line" data-time="16">Everything she never had, she's showing off</p>
+                <p class="lyric-line" data-time="25">Driving too fast, moon is breaking through her hair</p>
+                <p class="lyric-line" data-time="28">She's heading for something that she won't forget</p>
+                <p class="lyric-line" data-time="32">Having no regrets is all she really wants</p>
+                <p class="lyric-line" data-time="41">We're only getting older, baby</p>
+                <p class="lyric-line" data-time="44">And I've been thinking about it lately</p>
+                <p class="lyric-line" data-time="59">Does it ever drive you crazy</p>
+                <p class="lyric-line" data-time="53">Just how fast the night changes?</p>
+            </div>
+        </div>
+    </div>
+    <audio id="nightSong" autoplay><source src="night-changes.mp3" type="audio/mpeg"></audio>
+    <script>
+        const audio = document.getElementById('nightSong');
+        const lines = document.querySelectorAll('.lyric-line');
+        audio.ontimeupdate = function() {
+            let currentTime = audio.currentTime;
+            lines.forEach((line, index) => {
+                let lineTime = parseFloat(line.getAttribute('data-time'));
+                let nextLineTime = lines[index + 1] ? parseFloat(lines[index + 1].getAttribute('data-time')) : 999;
+                if (currentTime >= lineTime && currentTime < nextLineTime) {
+                    line.classList.add('active-lyric');
+                    line.scrollIntoView({ behavior: "smooth", block: "center" });
+                } else { line.classList.remove('active-lyric'); }
+            });
+        };
+    </script>
+</body>
+</html>

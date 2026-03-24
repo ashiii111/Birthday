@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open Gift Box</title>
+    <style>
+        body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; background-color: #000; }
+        .bg { 
+            position: relative; width: 100vw; height: 100vh; 
+            background-image: url('41483.jpg'); 
+            background-size: contain; background-position: center; background-repeat: no-repeat; 
+        }
+        .back { position: absolute; top: 20px; left: 20px; color: white; text-decoration: none; font-family: sans-serif; background: rgba(255,255,255,0.1); padding: 10px 20px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.3); z-index: 10; }
+        .gift-hotspot { position: absolute; cursor: pointer; background: rgba(255, 255, 255, 0); }
+        .btn-chocolate { top: 40%; left: 46%; width: 13%; height: 27%; }
+        .btn-flowers { top: 52%; left: 55%; width: 19%; height: 33%; }
+        .btn-letter { top: 25%; left: 55%; width: 20%; height: 28%; }
+    </style>
+</head>
+<body>
+    <div class="bg">
+        <a href="index.html" class="back">← Back</a>
+        <a href="chocolate.html" class="gift-hotspot btn-chocolate"></a>
+        <a href="flowers.html" class="gift-hotspot btn-flowers"></a>
+        <a href="letter.html" class="gift-hotspot btn-letter"></a>
+    </div>
+</body>
+</html>
