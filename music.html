@@ -3,31 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Night Changes - Music</title>
+    <title>Night Changes</title>
     <style>
-        /* 1. Setup the screen */
         body, html {
             margin: 0; padding: 0; height: 100%; width: 100%;
-            overflow: hidden; background-color: #000;
+            overflow: hidden; background-color: #000; /* Black bars top/bottom */
             display: flex; justify-content: center; align-items: center;
         }
 
-        /* 2. The Background Image (Centered) */
         .container {
             position: relative;
             width: 100vw;
             height: 100vh;
+            /* IMAGE SETTINGS FIXED HERE */
             background-image: url('41486.gif'); 
-            background-size: contain;
-            background-position: center;
-            background-repeat: no-repeat;
+            background-size: contain;     /* Fits the whole image in the screen */
+            background-position: center;  /* Centers it perfectly */
+            background-repeat: no-repeat; /* Stops it from appearing on left/right */
         }
 
-        /* 3. The Lyrics Box (Pinned to the right side of the image) */
         .lyrics-box {
             position: absolute;
             top: 50%;
-            left: 75%; /* Moves it to your scribbled area */
+            left: 75%; 
             width: 25%;
             height: 30%;
             transform: translate(-50%, -50%);
@@ -35,6 +33,76 @@
             justify-content: center;
             align-items: center;
             text-align: center;
+            z-index: 100;
+            pointer-events: none;
+        }
+
+        .lyric-line {
+            font-family: 'Georgia', serif;
+            font-size: 1.1rem;
+            font-style: italic;
+            color: #000;
+            position: absolute;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+            width: 90%;
+            margin: 0;
+        }
+
+        .lyric-line.active {
+            opacity: 1;
+        }
+
+        .back-btn {
+            position: absolute; top: 20px; left: 20px;
+            color: white; text-decoration: none; font-family: sans-serif;
+            background: rgba(0,0,0,0.5); padding: 10px 20px;
+            border-radius: 30px; z-index: 999;
+        }
+    </style>
+</head>
+<body onclick="startMusic()">
+
+    <a href="index.html" class="back-btn">← Back</a>
+
+    <div class="container">
+        <div class="lyrics-box" id="lyrics-display">
+            <p class="lyric-line" data-time="0.1">Tap anywhere to start...</p>
+            <p class="lyric-line" data-time="9">Doesn't like that kind of dress</p>
+            <p class="lyric-line" data-time="13">Everything she never had</p>
+            <p class="lyric-line" data-time="17">She's showing off</p>
+            <p class="lyric-line" data-time="22">Driving too fast, moon is breaking</p>
+        </div>
+    </div>
+
+    <audio id="mySong">
+        <source src="night-changes.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        const song = document.getElementById('mySong');
+        const lines = document.querySelectorAll('.lyric-line');
+
+        function startMusic() {
+            song.play();
+        }
+
+        setInterval(() => {
+            let currentTime = song.currentTime;
+            lines.forEach((line, index) => {
+                let startTime = parseFloat(line.getAttribute('data-time'));
+                let nextTime = lines[index + 1] ? parseFloat(lines[index+1].getAttribute('data-time')) : 999;
+
+                if (currentTime >= startTime && currentTime < nextTime) {
+                    line.classList.add('active');
+                } else {
+                    line.classList.remove('active');
+                }
+            });
+        }, 100);
+    </script>
+</body>
+</html>            text-align: center;
             z-index: 100;
             /* pointer-events: none; ensures clicks go to the body to start music */
             pointer-events: none; 
