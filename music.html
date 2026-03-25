@@ -3,37 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Music Player</title>
+    <title>Night Changes - Music</title>
     <style>
+        /* 1. Setup the screen */
         body, html {
             margin: 0; padding: 0; height: 100%; width: 100%;
             overflow: hidden; background-color: #000;
             display: flex; justify-content: center; align-items: center;
         }
 
+        /* 2. The Background Image (Centered) */
         .container {
             position: relative;
             width: 100vw;
             height: 100vh;
-            background-image: url('41486.gif'); /* Your vinyl image */
+            background-image: url('41486.gif'); 
             background-size: contain;
             background-position: center;
             background-repeat: no-repeat;
         }
 
-/* Update these specific sections in your music.html */
+        /* 3. The Lyrics Box (Pinned to the right side of the image) */
+        .lyrics-box {
+            position: absolute;
+            top: 50%;
+            left: 75%; /* Moves it to your scribbled area */
+            width: 25%;
+            height: 30%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            z-index: 100;
+            /* pointer-events: none; ensures clicks go to the body to start music */
+            pointer-events: none; 
+        }
 
-.lyrics-box {
-    position: absolute;
-    /* We use 'top: 50%' and 'transform' to keep it perfectly centered vertically */
-    top: 50%;
-    left: 65%; 
-    width: 30%;
-    height: 40%;
-    transform: translateY(-50%); 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+        /* 4. The Fade Animation */
+        .lyric-line {
+            font-family: 'Georgia', serif;
+            font-size: 1.1rem;
+            font-style: italic;
+            color: #000000; /* Black text for the gray background */
+            position: absolute;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+            width: 100%;
+            margin: 0;
+            line-height: 1.4;
+        }
+
+        /* This class is toggled by JavaScript */
+        .lyric-line.active {
+            opacity: 1;
+        }
+
+        .back-btn {
+            position: absolute; top: 20px; left: 20px;
+            color: white; text-decoration: none; font-family: sans-serif;
+            background: rgba(0,0,0,0.5); padding: 10px 20px;
+            border-radius: 30px; z-index: 999;
+        }
+    </style>
+</head>
+<body onclick="startMusic()">
+
+    <a href="index.html" class="back-btn">← Back</a>
+
+    <div class="container">
+        <div class="lyrics-box" id="lyrics-display">
+            <p class="lyric-line" data-time="0.1">Tap to start music...</p>
+            <p class="lyric-line" data-time="9">Doesn't like that kind of dress</p>
+            <p class="lyric-line" data-time="13">Everything she never had</p>
+            <p class="lyric-line" data-time="17">She's showing off</p>
+            <p class="lyric-line" data-time="22">Driving too fast, moon is breaking</p>
+            <p class="lyric-line" data-time="26">Through her hair...</p>
+        </div>
+    </div>
+
+    <audio id="mySong">
+        <source src="night-changes.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        const song = document.getElementById('mySong');
+        const lines = document.querySelectorAll('.lyric-line');
+
+        // Function to handle the mobile "Tap to Play" requirement
+        function startMusic() {
+            song.play();
+        }
+
+        // The "Brain" of the lyrics - checks time 10 times per second
+        setInterval(() => {
+            let currentTime = song.currentTime;
+
+            lines.forEach((line, index) => {
+                let startTime = parseFloat(line.getAttribute('data-time'));
+                let nextTime = lines[index + 1] ? parseFloat(lines[index+1].getAttribute('data-time')) : 999;
+
+                if (currentTime >= startTime && currentTime < nextTime) {
+                    line.classList.add('active');
+                } else {
+                    line.classList.remove('active');
+                }
+            });
+        }, 100);
+    </script>
+
+</body>
+</html>
     text-align: center;
     z-index: 10;
     /* REMOVE the line below once the lyrics are positioned correctly */
