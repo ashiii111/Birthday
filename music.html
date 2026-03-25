@@ -54,12 +54,12 @@
 
 
         /* This class makes the line visible */
-        .lyric-line.active {
-            opacity: 1;
-            font-weight: bold;
-            color: #000;
-        }
-
+        /* This class must match the name used in your JavaScript */
+.lyric-line.active-lyric {
+    opacity: 1;
+    font-weight: bold;
+    color: #000;
+}
         .back-btn {
             position: absolute; top: 20px; left: 20px;
             color: white; text-decoration: none; font-family: sans-serif;
@@ -115,21 +115,29 @@
 
 </body>
 </html>
-    <audio id="nightSong" autoplay><source src="changes.mp3" type="audio/mpeg"></audio>
-    <script>
-        const audio = document.getElementById('nightSong');
-        const lines = document.querySelectorAll('.lyric-line');
-        audio.ontimeupdate = function() {
-            let currentTime = audio.currentTime;
-            lines.forEach((line, index) => {
-                let lineTime = parseFloat(line.getAttribute('data-time'));
-                let nextLineTime = lines[index + 1] ? parseFloat(lines[index + 1].getAttribute('data-time')) : 999;
-                if (currentTime >= lineTime && currentTime < nextLineTime) {
-                    line.classList.add('active-lyric');
-                    line.scrollIntoView({ behavior: "smooth", block: "center" });
-                } else { line.classList.remove('active-lyric'); }
-            });
-        };
-    </script>
+    <audio id="mySong" autoplay>
+    <source src="changes.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+    const song = document.getElementById('mySong');
+    const lines = document.querySelectorAll('.lyric-line');
+
+    song.ontimeupdate = () => {
+        let currentTime = song.currentTime;
+        
+        lines.forEach((line, index) => {
+            let startTime = parseFloat(line.getAttribute('data-time'));
+            let nextTime = lines[index + 1] ? parseFloat(lines[index+1].getAttribute('data-time')) : 999;
+
+            if (currentTime >= startTime && currentTime < nextTime) {
+                // Use 'active-lyric' to match the new CSS
+                line.classList.add('active-lyric');
+            } else {
+                line.classList.remove('active-lyric');
+            }
+        });
+    };
+</script>
 </body>
 </html>
