@@ -3,37 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Music - Night Changes</title>
+    <title>Music Player</title>
     <style>
-        body, html { margin: 0; padding: 0; height: 100%; width: 100%; overflow: hidden; background-color: #f0f0f0; font-family: 'Segoe UI', sans-serif; }
-        .container { display: flex; align-items: center; justify-content: center; height: 100vh; }
-        .vinyl-side { flex: 1; display: flex; justify-content: flex-end; padding-right: 50px; }
-        .vinyl-side img { max-width: 80%; height: auto; }
-        .lyrics-side { flex: 1; padding: 40px; color: #aaa; font-size: 1.5rem; line-height: 1.8; text-align: left; }
-        .active-lyric { color: #111; font-weight: 800; transform: scale(1.05); display: inline-block; transition: 0.3s; }
-        .back-btn { position: absolute; top: 20px; left: 20px; text-decoration: none; color: #333; background: rgba(0,0,0,0.08); padding: 10px 25px; border-radius: 25px; font-weight: bold; }
-        .lyrics-list { max-height: 70vh; overflow-y: auto; scrollbar-width: none; }
+        body, html {
+            margin: 0; padding: 0; height: 100%; width: 100%;
+            overflow: hidden; background-color: #000;
+            display: flex; justify-content: center; align-items: center;
+        }
+
+        .container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            background-image: url('41486.gif'); /* Your vinyl image */
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        /* The Box for Lyrics (Matching your red drawing) */
+        .lyrics-box {
+            position: absolute;
+            top: 15%;      /* Adjust to sit higher or lower */
+            left: 60%;     /* Adjust to move right or left */
+            width: 35%;    /* Adjust width of text area */
+            height: 70%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .lyric-line {
+            font-family: 'Georgia', serif;
+            font-size: 1.5rem;
+            font-style: italic;
+            color: #555;
+            position: absolute; /* Stack lines on top of each other for fading */
+            opacity: 0;
+            transition: opacity 1s ease-in-out; /* The Fade effect */
+            width: 100%;
+        }
+
+        /* This class makes the line visible */
+        .lyric-line.active {
+            opacity: 1;
+            font-weight: bold;
+            color: #000;
+        }
+
+        .back-btn {
+            position: absolute; top: 20px; left: 20px;
+            color: white; text-decoration: none; font-family: sans-serif;
+            background: rgba(0,0,0,0.5); padding: 10px 20px;
+            border-radius: 30px; z-index: 100;
+        }
     </style>
 </head>
 <body>
+
     <a href="index.html" class="back-btn">← Back</a>
+
     <div class="container">
-        <div class="vinyl-side"><img src="41486.gif"></div>
-        <div class="lyrics-side">
-            <div class="lyrics-list" id="lyrics-box">
-                <p class="lyric-line" data-time="9">Going out tonight, changes into something red</p>
-                <p class="lyric-line" data-time="13">Her mother doesn't like that kind of dress</p>
-                <p class="lyric-line" data-time="16">Everything she never had, she's showing off</p>
-                <p class="lyric-line" data-time="25">Driving too fast, moon is breaking through her hair</p>
-                <p class="lyric-line" data-time="28">She's heading for something that she won't forget</p>
-                <p class="lyric-line" data-time="32">Having no regrets is all she really wants</p>
-                <p class="lyric-line" data-time="41">We're only getting older, baby</p>
-                <p class="lyric-line" data-time="44">And I've been thinking about it lately</p>
-                <p class="lyric-line" data-time="59">Does it ever drive you crazy</p>
-                <p class="lyric-line" data-time="53">Just how fast the night changes?</p>
-            </div>
+        <div class="lyrics-box" id="lyrics-display">
+            <p class="lyric-line" data-time="9">doesn't like that kind of dress</p>
+            <p class="lyric-line" data-time="13">Everything she never had</p>
+            <p class="lyric-line" data-time="17">she's showing off</p>
+            <p class="lyric-line" data-time="22">Driving too fast, moon is breaking</p>
         </div>
     </div>
+
+    <audio id="mySong">
+        <source src="changes.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        const song = document.getElementById('mySong');
+        const lines = document.querySelectorAll('.lyric-line');
+
+        // Note: Music only plays after user clicks the CD in index.html
+        window.addEventListener('load', () => {
+            song.play().catch(() => {
+                console.log("Waiting for user interaction to play music");
+            });
+        });
+
+        song.ontimeupdate = () => {
+            let currentTime = song.currentTime;
+            
+            lines.forEach((line, index) => {
+                let startTime = parseFloat(line.getAttribute('data-time'));
+                // Get the time of the NEXT line to know when to fade out
+                let nextTime = lines[index + 1] ? parseFloat(lines[index+1].getAttribute('data-time')) : 999;
+
+                if (currentTime >= startTime && currentTime < nextTime) {
+                    line.classList.add('active');
+                } else {
+                    line.classList.remove('active');
+                }
+            });
+        };
+    </script>
+
+</body>
+</html>
     <audio id="nightSong" autoplay><source src="changes.mp3" type="audio/mpeg"></audio>
     <script>
         const audio = document.getElementById('nightSong');
