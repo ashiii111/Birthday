@@ -21,30 +21,37 @@
             background-repeat: no-repeat;
         }
 
-        /* The Box for Lyrics (Matching your red drawing) */
-        .lyrics-box {
-            position: absolute;
-            top: 15%;      /* Adjust to sit higher or lower */
-            left: 60%;     /* Adjust to move right or left */
-            width: 35%;    /* Adjust width of text area */
-            height: 70%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
+/* Update these specific sections in your music.html */
 
-        .lyric-line {
-            font-family: 'Georgia', serif;
-            font-size: 1.5rem;
-            font-style: italic;
-            color: #555;
-            position: absolute; /* Stack lines on top of each other for fading */
-            opacity: 0;
-            transition: opacity 1s ease-in-out; /* The Fade effect */
-            width: 100%;
-        }
+.lyrics-box {
+    position: absolute;
+    /* We use 'top: 50%' and 'transform' to keep it perfectly centered vertically */
+    top: 50%;
+    left: 65%; 
+    width: 30%;
+    height: 40%;
+    transform: translateY(-50%); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    z-index: 10;
+    /* REMOVE the line below once the lyrics are positioned correctly */
+    border: 2px solid red; 
+}
+
+.lyric-line {
+    font-family: 'Georgia', serif;
+    font-size: 1.2rem; /* Made slightly smaller to fit the drawing area */
+    font-style: italic;
+    color: #000; /* Changed to Black so it's visible on the gray background */
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out;
+    width: 100%;
+    margin: 0;
+}
+
 
         /* This class makes the line visible */
         .lyric-line.active {
