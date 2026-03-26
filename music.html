@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Music Player</title>
+    <title>Night Changes - Lyrics</title>
     <style>
         body, html {
             margin: 0; padding: 0; height: 100%; width: 100%;
@@ -19,22 +19,46 @@
             background-repeat: no-repeat; 
             background-position: center; 
             background-size: contain; 
-            cursor: pointer; /* Shows the user they can click here */
+        }
+
+        /* The Box for your lyrics (aligned to your drawing) */
+        .lyrics-window {
+            position: absolute;
+            top: 50%;
+            left: 70%; 
+            width: 30%;
+            height: 40%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            pointer-events: none; /* Clicks go through to the background to play music */
+        }
+
+        .lyric-line {
+            font-family: 'Georgia', serif;
+            font-size: 1.2rem;
+            font-style: italic;
+            color: #000; /* Black text to show up on the gray drawing */
+            position: absolute;
+            opacity: 0;
+            transition: opacity 1s ease-in-out; /* This creates the Fade In/Out */
+            width: 90%;
+            margin: 0;
+            line-height: 1.4;
+        }
+
+        /* This class makes the current line visible */
+        .active {
+            opacity: 1;
         }
 
         .back-btn {
             position: absolute; top: 20px; left: 20px;
             color: white; text-decoration: none; font-family: sans-serif;
             background: rgba(255, 255, 255, 0.2);
-            padding: 10px 20px; border-radius: 30px; z-index: 10;
-        }
-
-        /* Instruction text that fades out once music starts */
-        .instruction {
-            position: absolute; bottom: 50px; width: 100%;
-            text-align: center; color: rgba(255,255,255,0.6);
-            font-family: sans-serif; font-size: 14px;
-            pointer-events: none;
+            padding: 10px 20px; border-radius: 30px; z-index: 999;
         }
     </style>
 </head>
@@ -43,7 +67,14 @@
     <a href="index.html" class="back-btn">← Back</a>
 
     <div class="image-screen">
-        <div class="instruction" id="hint">Tap anywhere to play music</div>
+        <div class="lyrics-window">
+            <p class="lyric-line active" data-time="0">Tap to start music...</p>
+            <p class="lyric-line" data-time="9">Doesn't like that kind of dress</p>
+            <p class="lyric-line" data-time="13">Everything she never had</p>
+            <p class="lyric-line" data-time="17">She's showing off</p>
+            <p class="lyric-line" data-time="22">Driving too fast, moon is breaking</p>
+            <p class="lyric-line" data-time="26">Through her hair...</p>
+        </div>
     </div>
 
     <audio id="mySong">
@@ -51,16 +82,29 @@
     </audio>
 
     <script>
+        const song = document.getElementById('mySong');
+        const lines = document.querySelectorAll('.lyric-line');
+
         function playSong() {
-            var song = document.getElementById("mySong");
-            var hint = document.getElementById("hint");
-            
-            // Starts the song
             song.play();
-            
-            // Hides the "Tap to play" text once it's playing
-            hint.style.display = "none";
         }
+
+        // This checks the song time every 100 milliseconds
+        setInterval(() => {
+            let currentTime = song.currentTime;
+
+            lines.forEach((line, index) => {
+                let startTime = parseFloat(line.getAttribute('data-time'));
+                // Find when the next line starts so this one can fade out
+                let nextTime = lines[index + 1] ? parseFloat(lines[index+1].getAttribute('data-time')) : 999;
+
+                if (currentTime >= startTime && currentTime < nextTime) {
+                    line.classList.add('active');
+                } else {
+                    line.classList.remove('active');
+                }
+            });
+        }, 100);
     </script>
 
 </body>
