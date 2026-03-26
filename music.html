@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Night Changes - Lyrics</title>
+    <title>Night Changes - Full Lyrics</title>
     <style>
         body, html {
             margin: 0; padding: 0; height: 100%; width: 100%;
@@ -21,43 +21,39 @@
             background-size: contain; 
         }
 
-        /* The Box for your lyrics (aligned to your drawing) */
         .lyrics-window {
             position: absolute;
             top: 50%;
-            left: 70%; 
-            width: 30%;
-            height: 40%;
+            left: 72%; 
+            width: 35%;
+            height: 45%;
             transform: translate(-50%, -50%);
             display: flex;
             justify-content: center;
             align-items: center;
             text-align: center;
-            pointer-events: none; /* Clicks go through to the background to play music */
+            pointer-events: none;
         }
 
         .lyric-line {
             font-family: 'Georgia', serif;
-            font-size: 1.2rem;
+            font-size: 1rem; /* Slightly smaller for longer lines */
             font-style: italic;
-            color: #000; /* Black text to show up on the gray drawing */
+            color: #000;
             position: absolute;
             opacity: 0;
-            transition: opacity 1s ease-in-out; /* This creates the Fade In/Out */
-            width: 90%;
+            transition: opacity 0.6s ease-in-out;
+            width: 95%;
             margin: 0;
-            line-height: 1.4;
+            line-height: 1.3;
         }
 
-        /* This class makes the current line visible */
-        .active {
-            opacity: 1;
-        }
+        .active { opacity: 1; }
 
         .back-btn {
             position: absolute; top: 20px; left: 20px;
             color: white; text-decoration: none; font-family: sans-serif;
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(0, 0, 0, 0.4);
             padding: 10px 20px; border-radius: 30px; z-index: 999;
         }
     </style>
@@ -67,37 +63,68 @@
     <a href="index.html" class="back-btn">← Back</a>
 
     <div class="image-screen">
-        <div class="lyrics-window">
+        <div class="lyrics-window" id="lyrics-display">
             <p class="lyric-line active" data-time="0">Tap to start music...</p>
-            <p class="lyric-line" data-time="9">Doesn't like that kind of dress</p>
-            <p class="lyric-line" data-time="13">Everything she never had</p>
-            <p class="lyric-line" data-time="17">She's showing off</p>
-            <p class="lyric-line" data-time="22">Driving too fast, moon is breaking</p>
-            <p class="lyric-line" data-time="26">Through her hair...</p>
+            <p class="lyric-line" data-time="8.61">Going out tonight, changes into something red</p>
+            <p class="lyric-line" data-time="12.31">Her mother doesn't like that kind of dress</p>
+            <p class="lyric-line" data-time="16.40">Everything she never had, she's showing off</p>
+            <p class="lyric-line" data-time="24.01">Driving too fast, moon is breaking through her hair</p>
+            <p class="lyric-line" data-time="28.65">She's headin' for something that she won't forget</p>
+            <p class="lyric-line" data-time="32.40">Having no regrets is all that she really wants</p>
+            <p class="lyric-line" data-time="40.58">We're only getting older, baby</p>
+            <p class="lyric-line" data-time="44.47">And I've been thinking about it lately</p>
+            <p class="lyric-line" data-time="48.39">Does it ever drive you crazy</p>
+            <p class="lyric-line" data-time="52.44">Just how fast the night changes?</p>
+            <p class="lyric-line" data-time="56.96">Everything that you've ever dreamed of</p>
+            <p class="lyric-line" data-time="100.75">Disappearing when you wake up</p>
+            <p class="lyric-line" data-time="104.87">But there's nothing to be afraid of</p>
+            <p class="lyric-line" data-time="108.57">Even when the night changes</p>
+            <p class="lyric-line" data-time="112.77">It will never change me and you</p>
+            <p class="lyric-line" data-time="120.07">Chasing her tonight, doubts are running 'round her head</p>
+            <p class="lyric-line" data-time="124.77">He's waiting, hides behind a cigarette</p>
+            <p class="lyric-line" data-time="128.52">Heart is beating loud, and she doesn't want it to stop</p>
+            <p class="lyric-line" data-time="136.48">Moving too fast, moon is lighting up her skin</p>
+            <p class="lyric-line" data-time="140.87">She's falling, doesn't even know it yet</p>
+            <p class="lyric-line" data-time="144.47">Having no regrets is all that she really wants</p>
+            <p class="lyric-line" data-time="152.56">We're only getting older, baby</p>
+            <p class="lyric-line" data-time="156.59">And I've been thinking about it lately</p>
+            <p class="lyric-line" data-time="160.66">Does it ever drive you crazy</p>
+            <p class="lyric-line" data-time="164.46">Just how fast the night changes?</p>
+            <p class="lyric-line" data-time="168.81">Everything that you've ever dreamed of</p>
+            <p class="lyric-line" data-time="172.60">Disappearing when you wake up</p>
+            <p class="lyric-line" data-time="176.76">But there's nothing to be afraid of</p>
+            <p class="lyric-line" data-time="180.51">Even when the night changes</p>
+            <p class="lyric-line" data-time="185.15">It will never change me and you</p>
+            <p class="lyric-line" data-time="240.73">Going out tonight, changes into something red</p>
+            <p class="lyric-line" data-time="244.89">Her mother doesn't like that kind of dress</p>
+            <p class="lyric-line" data-time="248.50">Reminds her of the innocence she lost</p>
+            <p class="lyric-line" data-time="254.90">We're only getting older, baby</p>
+            <p class="lyric-line" data-time="258.30">And I've been thinking about it lately</p>
+            <p class="lyric-line" data-time="262.47">Does it ever drive you crazy</p>
+            <p class="lyric-line" data-time="266.33">Just how fast the night changes?</p>
+            <p class="lyric-line" data-time="270.75">Everything that you've ever dreamed of</p>
+            <p class="lyric-line" data-time="274.57">Disappearing when you wake up</p>
+            <p class="lyric-line" data-time="278.73">But there's nothing to be afraid of</p>
+            <p class="lyric-line" data-time="282.63">Even when the night changes</p>
+            <p class="lyric-line" data-time="287.10">It will never change, baby</p>
+            <p class="lyric-line" data-time="290.67">It will never change, baby</p>
+            <p class="lyric-line" data-time="294.83">It will never change me and you</p>
         </div>
     </div>
 
-    <audio id="mySong">
-        <source src="changes.mp3" type="audio/mpeg">
-    </audio>
+    <audio id="mySong"><source src="night-changes.mp3" type="audio/mpeg"></audio>
 
     <script>
         const song = document.getElementById('mySong');
         const lines = document.querySelectorAll('.lyric-line');
 
-        function playSong() {
-            song.play();
-        }
+        function playSong() { song.play(); }
 
-        // This checks the song time every 100 milliseconds
         setInterval(() => {
             let currentTime = song.currentTime;
-
             lines.forEach((line, index) => {
                 let startTime = parseFloat(line.getAttribute('data-time'));
-                // Find when the next line starts so this one can fade out
                 let nextTime = lines[index + 1] ? parseFloat(lines[index+1].getAttribute('data-time')) : 999;
-
                 if (currentTime >= startTime && currentTime < nextTime) {
                     line.classList.add('active');
                 } else {
@@ -106,6 +133,6 @@
             });
         }, 100);
     </script>
-
 </body>
-</html>
+    </html>
+    
