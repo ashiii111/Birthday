@@ -81,7 +81,40 @@
     </style>
 </head>
 <body>
+    <div id="lock-screen" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; color: #fff; z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; font-family: 'Georgia', serif; text-align: center;">
+    <h2 style="font-style: italic; letter-spacing: 2px;">Almost there...</h2>
+    <div id="countdown" style="font-size: 2.5rem; margin: 20px 0; font-weight: bold; color: #ff4d4d;"></div>
+    <p style="opacity: 0.6;">Unlocks on March 31st at Midnight</p>
+</div>
 
+<script>
+    function updateCountdown() {
+        // Set the target date: March 31, 2026, 00:00:00
+        const targetDate = new Date("March 31, 2026 00:00:00").getTime();
+        const now = new Date().getTime();
+        const difference = targetDate - now;
+
+        const lockScreen = document.getElementById('lock-screen');
+        const countdownElement = document.getElementById('countdown');
+
+        if (difference <= 0) {
+            // UNLOCK: Hide the lock screen
+            lockScreen.style.display = 'none';
+        } else {
+            // LOCK: Calculate time left
+            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+            countdownElement.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+        }
+    }
+
+    // Run every second
+    setInterval(updateCountdown, 1000);
+    updateCountdown(); // Run immediately on load
+</script>
     <div class="container">
         <a href="teddy.html" class="hotspot btn-teddy" title="Teddy Bear"></a>
         <a href="cake.html" class="hotspot btn-cake" title="Birthday Cake"></a>
