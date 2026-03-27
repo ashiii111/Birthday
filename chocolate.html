@@ -41,5 +41,55 @@
 </head>
 <body>
     <div class="bg"><a href="gift.html" class="back">← Back</a></div>
+<audio id="bgMusic" loop>
+    <source src="background.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+    const bgMusic = document.getElementById('bgMusic');
+
+    // 1. Setup on Page Load
+    window.addEventListener('load', () => {
+        const savedTime = localStorage.getItem('bgMusicTime');
+        const isPlaying = localStorage.getItem('bgMusicPlaying');
+
+        // Restore the exact second where the song left off
+        if (savedTime) {
+            bgMusic.currentTime = parseFloat(savedTime);
+        }
+
+        // Try to play automatically if it was already playing on the previous screen
+        if (isPlaying === 'true') {
+            bgMusic.play().catch(() => {
+                console.log("Waiting for user tap to resume background music.");
+            });
+        }
+
+        // Essential: First tap on any screen starts/resumes the loop
+        document.body.addEventListener('click', () => {
+            if (bgMusic.paused) {
+                bgMusic.play();
+                localStorage.setItem('bgMusicPlaying', 'true');
+            }
+        }, { once: true });
+    });
+
+    // 2. Continuous Sync (Saves the time every 100ms)
+    setInterval(() => {
+        if (!bgMusic.paused) {
+            localStorage.setItem('bgMusicTime', bgMusic.currentTime);
+        }
+    }, 100);
+
+    // 3. Stop background music if moving to the main "Night Changes" screen
+    document.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            if (link.getAttribute('href') === 'music.html') {
+                bgMusic.pause();
+                localStorage.setItem('bgMusicPlaying', 'false');
+            }
+        });
+    });
+</script>
 </body>
 </html> 
