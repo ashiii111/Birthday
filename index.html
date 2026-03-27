@@ -5,6 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Birthday Surprise</title>
     <style>
+        /* Add this to the top of your CSS in both files */
+* {
+    -webkit-tap-highlight-color: transparent; /* Removes the blue flash */
+    -webkit-touch-callout: none;              /* Prevents the 'save image' menu on long press */
+    outline: none;                            /* Removes the focus border */
+}
+
+/* Ensure your invisible button has these specifically */
+.invisible-btn {
+    background: transparent;
+    border: none;
+    -webkit-tap-highlight-color: rgba(0,0,0,0); /* Extra backup for older phones */
+}
         body, html { 
             margin: 0; padding: 0; height: 100%; width: 100%; 
             overflow: hidden; background-color: #1a1a1a;
